@@ -1,15 +1,5 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import Basic from "./Basic";
-import Variants from "./Variants";
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-`;
 
 const Box = styled(motion.div)`
   display: grid;
@@ -31,14 +21,41 @@ const Circle = styled(motion.div)`
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-function App() {
+const boxOpts = {
+  start: {
+    opacity: 1,
+    scale: 0,
+  },
+  end: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.3,
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const circleOpts = {
+  start: {
+    y: 30,
+    opacity: 0,
+  },
+  end: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
+function Variants() {
   return (
-    <Wrapper>
-      <Basic />
-      {/* motion은 기본적으로 부모에 있는 initial, animate props의 값을 자식들에게 상속한다. */}
-      <Variants />
-    </Wrapper>
+    <Box variants={boxOpts} initial="start" animate="end">
+      <Circle variants={circleOpts} />
+      <Circle variants={circleOpts} />
+      <Circle variants={circleOpts} />
+      <Circle variants={circleOpts} />
+    </Box>
   );
 }
 
-export default App;
+export default Variants;
