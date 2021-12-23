@@ -50,6 +50,7 @@ const circleOpts = {
 function Variants() {
   return (
     <Box variants={boxOpts} initial="start" animate="end">
+      {/* motion은 기본적으로 부모에 있는 initial, animate props의 값을 자식들에게 상속한다. */}
       <Circle variants={circleOpts} />
       <Circle variants={circleOpts} />
       <Circle variants={circleOpts} />

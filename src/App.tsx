@@ -1,6 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import styled from "styled-components";
 import Basic from "./Basic";
+import Gestures from "./Gestures";
+import Scroll from "./Scroll";
+import Svg from "./Svg";
 import Variants from "./Variants";
 
 const Wrapper = styled.div`
@@ -12,31 +15,27 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled(motion.div)`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10;
   width: 200px;
   height: 200px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: white;
   border-radius: 40px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-const Circle = styled(motion.div)`
-  background-color: white;
-  width: 70px;
-  height: 70px;
-  place-self: center;
-  border-radius: 50px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
-`;
+const boxVariants = {};
 
 function App() {
+  const x = useMotionValue(0);
+  // MotionValue는 업데이트될 때 Rendering Cycle을 발생시키지 않는다.
+  // 즉, State가 아니라는 의미
+  console.log(x);
   return (
     <Wrapper>
-      <Basic />
-      {/* motion은 기본적으로 부모에 있는 initial, animate props의 값을 자식들에게 상속한다. */}
-      <Variants />
+      {/* <Basic /> */}
+      {/* <Variants /> */}
+      {/* <Gestures /> */}
+      {/* <Scroll /> */}
+      <Svg />
     </Wrapper>
   );
 }
