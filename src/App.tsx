@@ -8,6 +8,7 @@ import Scroll from "./Scroll";
 import SharedLayout from "./SharedLayout";
 import Svg from "./Svg";
 import Variants from "./Variants";
+import Slider from "./Slider";
 
 const Wrapper = styled(motion.div)`
   display: flex;
@@ -15,14 +16,6 @@ const Wrapper = styled(motion.div)`
   align-items: center;
   width: 100vw;
   height: 100vh;
-`;
-
-const Box = styled(motion.div)`
-  width: 200px;
-  height: 200px;
-  background-color: white;
-  border-radius: 40px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
 const Tmp = styled(motion.div)`
@@ -52,12 +45,13 @@ const btnOpts = {
 };
 
 const components = [
-  <Basic key={1} />,
-  <Variants key={2} />,
-  <Gestures key={3} />,
-  <Scroll key={4} />,
-  <Svg key={5} />,
-  <SharedLayout key={6} />,
+  <Basic key={0} />,
+  <Variants key={1} />,
+  <Gestures key={2} />,
+  <Scroll key={3} />,
+  <Svg key={4} />,
+  <SharedLayout key={5} />,
+  <Slider key={6} />,
 ];
 
 const boxVariants = {
@@ -78,35 +72,33 @@ const boxVariants = {
     x: -500,
     opacity: 0,
     scale: 0,
+    transition: { duration: 1 },
   },
 };
 
 function App() {
-  const [visible, setVisible] = useState(0);
-  const onNext = () => setVisible((prev) => (prev === 5 ? 5 : prev + 1));
-  const onBack = () => setVisible((prev) => (prev === 0 ? 0 : prev - 1));
+  const [index, setIndex] = useState(0);
+  const onNext = () => setIndex((prev) => (prev === 6 ? 6 : prev + 1));
+  const onBack = () => setIndex((prev) => (prev === 0 ? 0 : prev - 1));
   return (
     <AnimatePresence>
-      {[0, 1, 2, 3, 4, 5].map((i) =>
-        i === visible ? (
-          <>
-            <Tmp
-              variants={boxVariants}
-              initial="invisible"
-              animate="visible"
-              exit="leaving"
-            >
-              {components[i]}
-            </Tmp>
-            <BackBtn style={btnOpts} onClick={onBack}>
-              <AiOutlineCaretLeft />
-            </BackBtn>
-            <NextBtn style={btnOpts} onClick={onNext}>
-              <AiOutlineCaretRight />
-            </NextBtn>
-          </>
-        ) : null
-      )}
+      <>
+        <Tmp
+          variants={boxVariants}
+          initial="invisible"
+          animate="visible"
+          exit="leaving"
+          key={index}
+        >
+          {components[index]}
+        </Tmp>
+        <BackBtn style={btnOpts} onClick={onBack}>
+          <AiOutlineCaretLeft />
+        </BackBtn>
+        <NextBtn style={btnOpts} onClick={onNext}>
+          <AiOutlineCaretRight />
+        </NextBtn>
+      </>
     </AnimatePresence>
   );
 }

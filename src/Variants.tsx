@@ -23,12 +23,10 @@ const Circle = styled(motion.div)`
 
 const boxOpts = {
   start: {
-    x: 500,
     opacity: 0,
     scale: 0,
   },
   end: {
-    x: 0,
     opacity: 1,
     scale: 1,
     transition: {
@@ -37,7 +35,6 @@ const boxOpts = {
     },
   },
   leaving: {
-    x: -500,
     opacity: 0,
     scale: 0,
   },
