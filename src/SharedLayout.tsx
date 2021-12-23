@@ -1,76 +1,49 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import styled from "styled-components";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
+import { motion } from "framer-motion";
+import { useState } from "react";
+
+const Wrapper = styled(motion.div)`
   height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `;
 
 const Box = styled(motion.div)`
   width: 400px;
-  height: 200px;
-  position: absolute;
+  height: 400px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 50px;
-  background-color: white;
-  border-radius: 40px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
 
-const boxOpts = {
-  initial: {
-    opacity: 0,
-    scale: 0,
-  },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    rotateZ: 360,
-  },
-  leaving: {
-    opacity: 0,
-    scale: 0,
-    y: 50,
-  },
-};
-
-const btnStyle = {
-  border: 0,
-  outline: 0,
-  background: "inherit",
-  fontSize: "36px",
-};
+const Circle = styled(motion.div)`
+  background-color: #00a5ff;
+  height: 100px;
+  width: 100px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
+`;
 
 function SharedLayout() {
-  const [showing, setShowing] = useState(false);
-  const toggleShowing = () => {
-    setShowing((prev) => !prev);
-  };
+  const [clicked, setClicked] = useState(false);
+  const toggleClicked = () => setClicked((prev) => !prev);
   return (
-    <Wrapper>
-      {/* AnimatePresence를 사용하려면 AnimatePresence Component로 감싸고 자식으로 조건문이 와야 한다. */}
-      <AnimatePresence>
-        {showing ? (
-          <Box
-            variants={boxOpts}
-            initial="initial"
-            animate="visible"
-            exit="leaving"
-          >
-            I'm Here!
-          </Box>
+    <Wrapper onClick={toggleClicked}>
+      <Box>
+        {!clicked ? (
+          <Circle layoutId="circle" style={{ borderRadius: 50 }} />
         ) : null}
-      </AnimatePresence>
-      <button style={btnStyle} onClick={toggleShowing}>
-        {showing ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-      </button>
+      </Box>
+      <Box>
+        {clicked ? (
+          <Circle layoutId="circle" style={{ borderRadius: 0, scale: 2 }} />
+        ) : null}
+      </Box>
     </Wrapper>
   );
 }
