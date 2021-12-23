@@ -23,16 +23,23 @@ const Circle = styled(motion.div)`
 
 const boxOpts = {
   start: {
-    opacity: 1,
+    x: 500,
+    opacity: 0,
     scale: 0,
   },
   end: {
+    x: 0,
     opacity: 1,
     scale: 1,
     transition: {
       delayChildren: 0.3,
       staggerChildren: 0.2,
     },
+  },
+  leaving: {
+    x: -500,
+    opacity: 0,
+    scale: 0,
   },
 };
 
@@ -49,7 +56,7 @@ const circleOpts = {
 
 function Variants() {
   return (
-    <Box variants={boxOpts} initial="start" animate="end">
+    <Box variants={boxOpts} initial="start" animate="end" exit="leaving">
       {/* motion은 기본적으로 부모에 있는 initial, animate props의 값을 자식들에게 상속한다. */}
       <Circle variants={circleOpts} />
       <Circle variants={circleOpts} />

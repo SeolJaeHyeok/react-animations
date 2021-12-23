@@ -22,8 +22,30 @@ const Box = styled(motion.div)`
   border-radius: 20px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.06);
 `;
+const boxVariants = {
+  invisible: {
+    x: 500,
+    opacity: 0,
+    scale: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+  leaving: {
+    x: -500,
+    opacity: 0,
+    scale: 0,
+  },
+};
 
 function Scroll() {
+  // MotionValue는 업데이트될 때 Rendering Cycle을 발생시키지 않는다.
+  // 즉, State가 아니라는 의미
   const x = useMotionValue(0);
   const rotateZ = useTransform(x, [-800, 800], [-360, 360]);
   const background = useTransform(
@@ -39,7 +61,15 @@ function Scroll() {
 
   return (
     <Wrapper style={{ background }}>
-      <Box drag="x" style={{ x, rotateZ, scale }} dragSnapToOrigin />
+      <Box
+        variants={boxVariants}
+        initial="invisible"
+        animate="visible"
+        exit="leaving"
+        drag="x"
+        style={{ x, rotateZ, scale }}
+        dragSnapToOrigin
+      />
     </Wrapper>
   );
 }

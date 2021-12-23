@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +13,24 @@ const Image = styled.svg`
   width: 300px;
   height: 300px;
 `;
+
+const boxVariants = {
+  invisible: {
+    x: 500,
+    opacity: 0,
+    scale: 0,
+  },
+  visible: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+  },
+  leaving: {
+    x: -500,
+    opacity: 0,
+    scale: 0,
+  },
+};
 
 const svgOpts = {
   start: { pathLength: 0, fill: "rgba(255, 255, 255, 0)" },
@@ -26,7 +44,12 @@ const svgOpts = {
 
 function Svg() {
   return (
-    <Wrapper>
+    <Wrapper
+      variants={boxVariants}
+      initial="invisible"
+      animate="visible"
+      exit="leaving"
+    >
       <Image
         focusable="false"
         xmlns="http://www.w3.org/2000/svg"
